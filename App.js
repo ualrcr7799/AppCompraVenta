@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { PedidoProvider } from './src/context/PedidoContext';  // Importa el proveedor
 
-export default function App() {
+import HomeScreen from './src/screens/HomeScreen';
+import ProductScreen from './src/screens/ProductScreen';
+import PedidoScreen from './src/screens/PedidoScreen';
+import VerPedidosScreen from './src/screens/VerPedidosScreen';
+
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PedidoProvider>  {/* Envuelve la app con el PedidoProvider */}
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="HomeScreen">
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="ProductScreen" component={ProductScreen} />
+          <Stack.Screen name="PedidoScreen" component={PedidoScreen} />
+          <Stack.Screen name="VerPedidosScreen" component={VerPedidosScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PedidoProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
